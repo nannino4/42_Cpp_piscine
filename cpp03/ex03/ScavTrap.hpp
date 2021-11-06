@@ -4,14 +4,14 @@
 #include <string.h>
 #include <iostream>
 
-class ScavTrap : public ClapTrap
+class ScavTrap : virtual public ClapTrap
 {
 	public:
 
-				ScavTrap();
+				ScavTrap(void);
 				ScavTrap(ScavTrap const &src);
 				ScavTrap(std::string name);
-				~ScavTrap();
+				~ScavTrap(void);
 
 		void	attack(std::string const &target);
 		void	guardGate(void);

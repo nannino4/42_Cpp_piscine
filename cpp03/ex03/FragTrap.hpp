@@ -4,16 +4,15 @@
 #include <string.h>
 #include <iostream>
 
-class FragTrap : public ClapTrap
+class FragTrap : virtual public ClapTrap
 {
 	public:
 
-				FragTrap();
+				FragTrap(void);
 				FragTrap(FragTrap const &src);
 				FragTrap(std::string name);
-				~FragTrap();
+				~FragTrap(void);
 
-		void	attack(std::string const &target);
 		void	highFiveGuys(void);
 
 };

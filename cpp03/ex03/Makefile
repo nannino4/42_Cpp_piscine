@@ -3,7 +3,8 @@ NAME		= 	program
 SRCS		= 	main.cpp \
 				ClapTrap.cpp \
 				FragTrap.cpp \
-				ScavTrap.cpp
+				ScavTrap.cpp \
+				DiamondTrap.cpp
 
 OBJS		= 	$(SRCS:.cpp=.o)
 

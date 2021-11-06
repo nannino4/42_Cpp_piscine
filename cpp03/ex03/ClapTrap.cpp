@@ -71,7 +71,7 @@ void	ClapTrap::attack(std::string const &target)
 	}
 }
 
-void	ClapTrap::takeDamage(unsigned int amount)
+void	ClapTrap::takeDamage(int amount)
 {
 	if (this->_hitPoints == 0)
 	{
@@ -90,7 +90,7 @@ void	ClapTrap::takeDamage(unsigned int amount)
 	
 }
 
-void	ClapTrap::berepaired(unsigned int amount)
+void	ClapTrap::berepaired(int amount)
 {
 	if (this->_energyPoints > 0)
 	{
