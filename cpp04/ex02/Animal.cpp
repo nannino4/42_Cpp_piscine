@@ -49,14 +49,3 @@ void	Animal::setType(std::string type)
 {
 	this->_type = type;
 }
-
-/*
-*******************************************************************************
-*** Member Functions
-*******************************************************************************
-*/
-
-void    Animal::makeSound(void) const
-{
-    std::cout << "*Animalish sounds*" << std::endl;
-}

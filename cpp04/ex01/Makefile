@@ -1,7 +1,10 @@
 NAME		= 	program
 
 SRCS		= 	main.cpp \
-				ClapTrap.cpp
+				Animal.cpp \
+				Dog.cpp \
+				Cat.cpp \
+				Brain.cpp
 
 OBJS		= 	$(SRCS:.cpp=.o)
 

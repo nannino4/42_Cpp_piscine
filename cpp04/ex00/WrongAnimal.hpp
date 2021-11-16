@@ -3,7 +3,7 @@
 #include <string>
 #include <iostream>
 
-class Animal
+class WrongAnimal
 {
 
 /*
@@ -12,15 +12,15 @@ class Animal
 *******************************************************************************
 */
 	public:
-						Animal(void);
-		virtual			~Animal(void);
-						Animal(Animal const &src);
-        Animal const	&operator=(Animal const &src);
+						WrongAnimal(void);
+		virtual			~WrongAnimal(void);
+						WrongAnimal(WrongAnimal const &src);
+        WrongAnimal const	&operator=(WrongAnimal const &src);
     
         std::string		getType(void) const;
 		void			setType(std::string type);
 
-		void virtual	makeSound(void) const;
+		void			makeSound(void) const;
 
 /*
 *******************************************************************************

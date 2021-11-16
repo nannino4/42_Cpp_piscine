@@ -1,9 +1,11 @@
 #pragma once
 
+#include "Animal.hpp"
+#include "Brain.hpp"
 #include <string>
 #include <iostream>
 
-class Animal
+class Cat : public Animal
 {
 
 /*
@@ -12,23 +14,15 @@ class Animal
 *******************************************************************************
 */
 	public:
-						Animal(void);
-		virtual			~Animal(void);
-						Animal(Animal const &src);
-        Animal const	&operator=(Animal const &src);
     
-        std::string		getType(void) const;
-		void			setType(std::string type);
+						Cat(void);
+		virtual			~Cat(void);
+						Cat(Cat const &src);
+        Cat const		&operator=(Cat const &src);
+    
+		Brain			*getBrain(void) const;
 
 		void virtual	makeSound(void) const;
-
-/*
-*******************************************************************************
-*** Protected
-*******************************************************************************
-*/
-	protected:
-		std::string		_type;
 
 /*
 *******************************************************************************
@@ -36,4 +30,7 @@ class Animal
 *******************************************************************************
 */
 	private:
+
+		Brain			*_brain;
+
 };
