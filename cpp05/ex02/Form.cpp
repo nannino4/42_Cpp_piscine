@@ -1,80 +1,104 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Form.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dmalori <dmalori@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/15 10:33:06 by dmalori           #+#    #+#             */
-/*   Updated: 2021/05/15 10:33:33 by dmalori          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Form.hpp"
 
-Form::Form(std::string name, int gradeForSign, int gradeForExecute) : name(name), gradeForSign(gradeForSign), gradeForExecute(gradeForExecute), isSigned(false) {
-	if (this->gradeForSign < 1 || this->gradeForExecute < 1)
-		throw Form::GradeTooHighException();
-	if (this->gradeForSign > 150 || this->gradeForExecute > 150)
-		throw Form::GradeTooLowException();
+/*
+*******************************************************************************
+** Constructors & Destructor
+*******************************************************************************
+*/
+
+Form::Form(void) : target("Default"), name("DefaultForm"), gradeSign(150), gradeExec(150), isSigned(0)
+{
+	std::cout << "The form \"" << this->name << "\" has been created" << std::endl;
 }
 
-Form::~Form() {}
+Form::Form(std::string name, int gradeSign, int gradeExec) : target("Default"), name(name), gradeSign(gradeSign), gradeExec(gradeExec), isSigned(0)
+{
+	std::cout << "The form \"" << this->name << "\" has been created" << std::endl;
+	if (gradeSign < 1 || gradeExec < 1)
+		throw (Form::GradeTooHighException());
+	else if (gradeSign > 150 || gradeExec > 150)
+		throw (Form::GradeTooLowException());
+}
 
-Form::Form(const Form &other) : name(other.name), gradeForSign(other.gradeForSign), gradeForExecute(other.gradeForExecute)
+Form::~Form(void)
+{
+	std::cout << "The form \"" << this->name << "\" has been removed" << std::endl;
+}
+		
+Form::Form(const Form &other) : target(other.target), name(other.name), gradeSign(other.gradeSign), gradeExec(other.gradeExec)
 {
 	*this = other;
 }
 
-Form &Form::operator = (const Form &other)
+/*
+*******************************************************************************
+** Operator Overrides
+*******************************************************************************
+*/
+
+Form &Form::operator=(const Form &other)
 {
 	if (this != &other)
 	{
 		this->isSigned = other.isSigned;
-		this->gradeForSign = other.gradeForSign;
-		this->gradeForExecute = other.gradeForExecute;
 	}
 	return (*this);
 }
+
+std::ostream &operator<<(std::ostream &output, const Form &obj)
+{
+	output << "Form's name: \"" << obj.getName() << "\", Form's sign grade: " << obj.getGradeSign() << ", Form's exec grade: " << obj.getGradeExec();
+	if (obj.getIsSigned())
+		std::cout << ", Form is Signed" << std::endl;
+	else
+		std::cout << ", Form is Not Signed" << std::endl;
+	return (output);
+}
+
+/*
+*******************************************************************************
+** Getters & Setters
+*******************************************************************************
+*/
 
 std::string Form::getName(void) const
 {
 	return (this->name);
 }
 
-int Form::getGradeForSign(void) const
+int Form::getGradeSign(void) const
 {
-	return (this->gradeForSign);
+	return (this->gradeSign);
 }
 
-int Form::getGradeForExecute(void) const
+int Form::getGradeExec(void) const
 {
-	return (this->gradeForExecute);
+	return (this->gradeExec);
 }
 
-bool Form::getSigned(void) const
+bool Form::getIsSigned(void) const
 {
 	return (this->isSigned);
 }
 
-void Form::beSigned(const Bureaucrat b)
+/*
+*******************************************************************************
+** Others
+*******************************************************************************
+*/
+
+void Form::beSigned(const Bureaucrat &b)
 {
-	if (b.getGrade() > this->gradeForSign)
-		throw Form::GradeTooLowException();
+	if (b.getGrade() > this->gradeSign)
+		throw (Form::GradeTooLowException());
 	else
-		this->isSigned = true;
+		this->isSigned = 1;
 }
 
-std::ostream& operator << (std::ostream &output, const Form &obj)
+void Form::isExcecutable(Bureaucrat const &excecutor) const
 {
-	output << "----------------------------" << std::endl;
-	output << "Form: " << obj.getName() << std::endl;
-	output << "Grade Sign: " << obj.getGradeForSign() << std::endl;
-	output << "Grade Execute: " << obj.getGradeForExecute() << std::endl;
-	if (obj.getSigned())
-		output << "Is Signed: TRUE" << std::endl;
-	else
-		output << "Is Signed: FALSE" << std::endl;
-	output << "----------------------------" << std::endl;
-	return (output);
+	if (!this->isSigned)
+		throw (Form::NotSignedException());
+	if (excecutor.getGrade() < this->getGradeSign() || excecutor.getGrade() < this->getGradeExec())
+		throw (Bureaucrat::GradeTooLowException());
 }

@@ -1,54 +1,47 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   PresidentialPardonForm.cpp                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dmalori <dmalori@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/15 10:33:14 by dmalori           #+#    #+#             */
-/*   Updated: 2021/05/15 10:33:33 by dmalori          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "PresidentialPardonForm.hpp"
-#include "Bureaucrat.hpp"
 
-PresidentialPardonForm::PresidentialPardonForm(std::string target) : Form("presidential pardon", 25, 5)
+/*
+*******************************************************************************
+** Constructors & Destructor
+*******************************************************************************
+*/
+
+PresidentialPardonForm::PresidentialPardonForm(void) : Form("PresidentialPardonForm", 25, 5)
+{
+    this->target = "Default";
+}
+
+PresidentialPardonForm::PresidentialPardonForm(std::string const &target) : Form("PresidentialPardonForm", 25, 5)
 {
     this->target = target;
 }
 
-std::string PresidentialPardonForm::getTarget(void) const
+PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm const &other) : Form("PresidentialPardonForm", 25, 5)
 {
-    return this->target;
+    *this = other;
 }
 
-PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &other)
-{
-	*this = other;
-}
+/*
+*******************************************************************************
+** Operator Overloads
+*******************************************************************************
+*/
 
-PresidentialPardonForm &PresidentialPardonForm::operator = (const PresidentialPardonForm &other)
+PresidentialPardonForm const &PresidentialPardonForm::operator=(PresidentialPardonForm const &other)
 {
-	if (this != &other)
-	{
-		this->isSigned = other.isSigned;
+    if (this != &other)
         this->target = other.target;
-	}
-	return (*this);
+    return (*this);
 }
 
-PresidentialPardonForm::~PresidentialPardonForm() {}
+/*
+*******************************************************************************
+** Others
+*******************************************************************************
+*/
 
-void PresidentialPardonForm::execute(const Bureaucrat & executor) const
+void    PresidentialPardonForm::execute(Bureaucrat const &executor) const
 {
-	if (this->getSigned())
-	{
-		if (executor.getGrade() > this->gradeForExecute)
-			throw Form::GradeTooHighException();
-		else
-			std::cout << "<" << this->target << "> has been pardoned by Zafod Beeblebrox" << std::endl;
-	}
-    else
-        std::cout << "Can't execute. Form not signed" << std::endl;
+    this->isExcecutable(executor);
+    executor.excecuteForm(*this);
 }
