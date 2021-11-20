@@ -1,63 +1,45 @@
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
-#include <string>
-#include <iostream>
+#include "PresidentialPardonForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "ShrubberyCreationForm.hpp"
 
 int main (void)
 {
-	std::cout << "------------------------------------------------------------------------------------------\n";
-	std::cout << "Creo un form con rank 1,1\n" << std::endl;
-	try
-	{
-		Form f = Form("Form Top-Secret", 1, 1);
-		std::cout << f;
-	}
-	catch(std::exception& e)
-	{
-		std::cout << e.what() << std::endl;
-	}
+	srand(time(0));
+	Form	*p = new PresidentialPardonForm("Babbione");
+	Form	*r = new RobotomyRequestForm("ShadyRequest");
+	Form	*s = new ShrubberyCreationForm("Rirou's_Garden");
 
-	std::cout << "------------------------------------------------------------------------------------------\n";
-	std::cout << "Creo un form con rank 1,-1\n" << std::endl;
+	std::cout << *p << std::endl;
+	std::cout << *r << std::endl;
+	std::cout << *s << std::endl;
+	
 	try
 	{
-		Form f = Form("Form Tropp-Secret", 1, -1);
-		std::cout << f;
-	}
-	catch(std::exception& e)
-	{
-		std::cout << e.what() << std::endl;
-	}
+		Bureaucrat	b("Boss", 1);
 
-	std::cout << "------------------------------------------------------------------------------------------\n";
-	std::cout << "Creo un form con rank 1,1 e lo faccio firmare da un burocrate rank 42\n" << std::endl;
-	try
-	{
-		Bureaucrat 	b("Bubbo", 42);
 		std::cout << b << std::endl;
 
-		Form		f("Form Top-Secret", 1, 1);
-		std::cout << f << std::endl;
-
-		b.signForm(f);
+		b.signForm(*p);
+		b.excecuteForm(*p);
+		b.signForm(*s);
+		b.excecuteForm(*s);
+		b.excecuteForm(*r);
 	}
 	catch(std::exception& e)
 	{
 		std::cout << e.what() << std::endl;
 	}
 
-	std::cout << "------------------------------------------------------------------------------------------\n";
-	std::cout << "Creo un form con rank 42,42 e lo faccio firmare da un burocrate rank 7\n" << std::endl;
 	try
 	{
-		Bureaucrat 	b("Babbo", 7);
+		Bureaucrat	b("Bubbo", 150);
+
 		std::cout << b << std::endl;
 
-		Form		f("Form di ordinaria amministrazione", 42, 42);
-		std::cout << f << std::endl;
-
-		b.signForm(f);
-		std::cout << f << std::endl;
+		b.signForm(*s);
+		b.excecuteForm(*s);
 	}
 	catch(std::exception& e)
 	{
