@@ -49,9 +49,9 @@ std::ostream &operator<<(std::ostream &output, const Form &obj)
 {
 	output << "Form's name: \"" << obj.getName() << "\", Form's sign grade: " << obj.getGradeSign() << ", Form's exec grade: " << obj.getGradeExec();
 	if (obj.getIsSigned())
-		std::cout << ", Form is Signed" << std::endl;
+		std::cout << ", Form is Signed";
 	else
-		std::cout << ", Form is Not Signed" << std::endl;
+		std::cout << ", Form is Not Signed";
 	return (output);
 }
 
@@ -90,15 +90,18 @@ bool Form::getIsSigned(void) const
 void Form::beSigned(const Bureaucrat &b)
 {
 	if (b.getGrade() > this->gradeSign)
-		throw (Form::GradeTooLowException());
+		throw (Form::CannotBeSignedException());
 	else
+	{
 		this->isSigned = 1;
+		std::cout << b.getName() << " signed " << this->getName() << std::endl;
+	}
 }
 
 void Form::isExcecutable(Bureaucrat const &excecutor) const
 {
 	if (!this->isSigned)
 		throw (Form::NotSignedException());
-	if (excecutor.getGrade() < this->getGradeSign() || excecutor.getGrade() < this->getGradeExec())
-		throw (Bureaucrat::GradeTooLowException());
+	if (excecutor.getGrade() > this->getGradeExec())
+		throw (Form::CannotBeExcecutedException());
 }

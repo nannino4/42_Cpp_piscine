@@ -15,22 +15,7 @@ int main (void)
 	std::cout << *r << std::endl;
 	std::cout << *s << std::endl;
 	
-	try
-	{
-		Bureaucrat	b("Boss", 1);
-
-		std::cout << b << std::endl;
-
-		b.signForm(*p);
-		b.excecuteForm(*p);
-		b.signForm(*s);
-		b.excecuteForm(*s);
-		b.excecuteForm(*r);
-	}
-	catch(std::exception& e)
-	{
-		std::cout << e.what() << std::endl;
-	}
+	std::cout << std::endl;
 
 	try
 	{
@@ -40,6 +25,41 @@ int main (void)
 
 		b.signForm(*s);
 		b.excecuteForm(*s);
+	}
+	catch(std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+
+	std::cout << std::endl;
+
+	try
+	{
+		Bureaucrat	b("Boss", 2);
+
+		std::cout << b << std::endl;
+
+		b.excecuteForm(*p);
+	}
+	catch(std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+
+	std::cout << std::endl;
+
+	try
+	{
+		Bureaucrat	b("Bossone", 1);
+
+		std::cout << b << std::endl;
+
+		b.signForm(*p);
+		b.excecuteForm(*p);
+		b.signForm(*s);
+		b.excecuteForm(*s);
+		b.signForm(*r);
+		b.excecuteForm(*r);
 	}
 	catch(std::exception& e)
 	{

@@ -47,8 +47,8 @@ void    ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 
     outFile << "  ooooooo " << std::endl;
     outFile << "oooooooooo" << std::endl;
-    outFile << "ooooo||ooo" << std::endl;
-    outFile << "oo\\ || /o" << std::endl;
+    outFile << "oooo||oooo" << std::endl;
+    outFile << "oo\\ || /oo" << std::endl;
     outFile << " oo\\  /o  " << std::endl;
     outFile << "  oo| |o  " << std::endl;
     outFile << "    | |   " << std::endl;
@@ -57,4 +57,5 @@ void    ShrubberyCreationForm::execute(Bureaucrat const &executor) const
     outFile << "-----------" << std::endl;
 
     outFile.close();
+    std::cout << this->target << " has been shrubbered" << std::endl;
 }

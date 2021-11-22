@@ -56,7 +56,23 @@ public:
 	public:
 		const char *what() const throw()
 		{
-			return ("Exception: Form not signed");
+			return ("Exception: Form cannot excecuted: Form is not signed");
+		}
+	};
+	class CannotBeSignedException : public std::exception
+	{
+	public:
+		const char *what() const throw()
+		{
+			return ("Exception: Form cannot be signed: Form's sign-grade is higher than bureaucrat's grade");
+		}
+	};
+	class CannotBeExcecutedException : public std::exception
+	{
+	public:
+		const char *what() const throw()
+		{
+			return ("Exception: Form cannot be excecuted: Form's excecute-grade is higher than bureaucrat's grade");
 		}
 	};
 
