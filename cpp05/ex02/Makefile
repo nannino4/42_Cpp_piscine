@@ -26,7 +26,6 @@ clean:
 
 fclean:		clean
 			rm -f $(NAME)
-			rm -f $(wildcard *.txt)
 
 
 re:			fclean all

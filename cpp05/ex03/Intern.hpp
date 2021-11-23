@@ -1,29 +1,41 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Intern.hpp                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dmalori <dmalori@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/15 10:33:58 by dmalori           #+#    #+#             */
-/*   Updated: 2021/05/15 10:34:22 by dmalori          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #pragma once
-#include "Form.hpp"
+
+#include <string>
+#include <iostream>
+#include "PresidentialPardonForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "ShrubberyCreationForm.hpp"
 
 class Intern
 {
-	public:
-    	/* Default Constructor */
-		Intern();
-		/* Destructor */
-		~Intern();
-		/* Copy Constructor */
-		Intern(const Intern &other);
-        /* Operation overload = */
-		Intern &operator = (const Intern &other);
-		/* Other */ 
-        Form *makeForm(std::string type, std::string target) const;
+/*
+*******************************************************************************
+*** Public
+*******************************************************************************
+*/
+public:
+
+	/* Constructors & Destructors */
+	Intern(void);
+	Intern(const Intern &other);
+	~Intern(void);
+
+	/* Operator overrides */
+	Intern 		&operator=(const Intern &other);
+
+	/* Others */
+    Form		*makeForm(std::string const &name, std::string const &target);
+
+/*
+*******************************************************************************
+*** Private
+*******************************************************************************
+*/
+private:
+
+	Form		*(Intern::*ptr[3])(std::string const &target); 
+    Form	*makePresidentialPardonForm(std::string const &target);
+    Form	*makeRobotomyRequestForm(std::string const &target);
+    Form	*makeShrubberyCreationForm(std::string const &target);
+
 };

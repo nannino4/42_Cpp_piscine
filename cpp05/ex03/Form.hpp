@@ -1,16 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Form.hpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dmalori <dmalori@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/15 10:33:53 by dmalori           #+#    #+#             */
-/*   Updated: 2021/05/15 10:34:22 by dmalori          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #pragma once
+
 #include <string>
 #include <iostream>
 #include "Bureaucrat.hpp"
@@ -19,46 +8,93 @@ class Bureaucrat;
 
 class Form
 {
-	protected:
-		const std::string name;
-		int gradeForSign;
-		int gradeForExecute;
-		bool isSigned;
-		/* Default Constructor */
-		Form() : name("empty"), gradeForSign(150), gradeForExecute(150), isSigned(false) {}
+/*
+*******************************************************************************
+*** Public
+*******************************************************************************
+*/
+public:
+
+	/* Constructors & Destructors */
+	Form(void);
+	Form(std::string name, int gradeSign, int gradeExec);
+	~Form(void);
+	Form(const Form &other);
+
+	/* Operator overrides */
+	Form 			&operator=(const Form &other);
+
+	/* Getters & Setters */
+	std::string 	getName(void) const;
+	int 			getGradeSign(void) const;
+	int 			getGradeExec(void) const;
+	bool			getIsSigned(void) const;
+
+	/* Others */
+	void			beSigned(const Bureaucrat &b);
+    virtual void    execute(Bureaucrat const &executor) const = 0;
+
+	/* Exceptions */
+	class GradeTooHighException : public std::exception
+	{
 	public:
-		/* Constructor */
-		Form(std::string name, int gradeForSign, int gradeForExecute);
-		/* Destructor */
-		virtual ~Form();
-		/* Copy Constructor */
-		Form(const Form &other);
-        /* Operation overload = */
-		Form &operator = (const Form &other);
-		/* Other */ 
-		std::string getName(void) const;
-		int getGradeForSign(void) const;
-		int getGradeForExecute(void) const;
-		bool getSigned(void) const;
-		void beSigned(const Bureaucrat b);
-		virtual void execute(const Bureaucrat& executor) const = 0;
-		/* Exception */
-		class GradeTooHighException : public std::exception
+		const char	*what() const throw()
 		{
-			public:
-			const char * what () const throw ()
-			{
-				return "Exception: Form grade too high";
-			}
-		};
-		class GradeTooLowException : public std::exception
+			return ("Exception: Form grade too high");
+		}
+	};
+	class GradeTooLowException : public std::exception
+	{
+	public:
+		const char	*what() const throw()
 		{
-			public:
-			const char * what () const throw ()
-			{
-				return "Exception: Form grade too low";
-			}
-		};
+			return ("Exception: Form grade too low");
+		}
+	};
+	class NotSignedException : public std::exception
+	{
+	public:
+		const char *what() const throw()
+		{
+			return ("Exception: Form cannot excecuted: Form is not signed");
+		}
+	};
+	class CannotBeSignedException : public std::exception
+	{
+	public:
+		const char *what() const throw()
+		{
+			return ("Exception: Form cannot be signed: Form's sign-grade is higher than bureaucrat's grade");
+		}
+	};
+	class CannotBeExcecutedException : public std::exception
+	{
+	public:
+		const char *what() const throw()
+		{
+			return ("Exception: Form cannot be excecuted: Form's excecute-grade is higher than bureaucrat's grade");
+		}
+	};
+
+/*
+*******************************************************************************
+*** Private
+*******************************************************************************
+*/
+private:
+	const std::string	name;
+	const int			gradeSign;
+	const int			gradeExec;
+	bool				isSigned;
+
+/*
+*******************************************************************************
+*** Protected
+*******************************************************************************
+*/
+protected:
+	std::string			target;
+	void				isExcecutable(Bureaucrat const &excecutor) const;
 };
 
-std::ostream& operator << (std::ostream &output, const Form &obj);
+std::ostream	&operator<<(std::ostream &output, const Form &obj);

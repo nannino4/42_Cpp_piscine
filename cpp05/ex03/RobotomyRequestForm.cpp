@@ -1,54 +1,58 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   RobotomyRequestForm.cpp                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dmalori <dmalori@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/15 10:34:09 by dmalori           #+#    #+#             */
-/*   Updated: 2021/05/15 10:34:22 by dmalori          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "RobotomyRequestForm.hpp"
-#include "Bureaucrat.hpp"
 
-RobotomyRequestForm::RobotomyRequestForm(std::string target) : Form("robotomy request", 72, 45)
+/*
+*******************************************************************************
+** Constructors & Destructor
+*******************************************************************************
+*/
+
+RobotomyRequestForm::RobotomyRequestForm(void) : Form("RobotomyRequestForm", 72, 45)
+{
+    this->target = "Default";
+}
+
+RobotomyRequestForm::RobotomyRequestForm(std::string const &target) : Form("RobotomyRequestForm", 72, 45)
 {
     this->target = target;
 }
 
-std::string RobotomyRequestForm::getTarget(void) const
+RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm const &other) : Form("RobotomyRequestForm", 72, 45)
 {
-    return this->target;
+    *this = other;
 }
 
-RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &other)
-{
-	*this = other;
-}
+/*
+*******************************************************************************
+** Operator Overloads
+*******************************************************************************
+*/
 
-RobotomyRequestForm &RobotomyRequestForm::operator = (const RobotomyRequestForm &other)
+RobotomyRequestForm const &RobotomyRequestForm::operator=(RobotomyRequestForm const &other)
 {
-	if (this != &other)
-	{
-		this->isSigned = other.isSigned;
+    if (this != &other)
         this->target = other.target;
-	}
-	return (*this);
+    return (*this);
 }
 
-RobotomyRequestForm::~RobotomyRequestForm() {}
+/*
+*******************************************************************************
+** Others
+*******************************************************************************
+*/
 
-void RobotomyRequestForm::execute(const Bureaucrat & executor) const
+void    RobotomyRequestForm::execute(Bureaucrat const &executor) const
 {
-	if (this->getSigned())
-	{
-		if (executor.getGrade() > this->gradeForExecute)
-			throw Form::GradeTooHighException();
-		else
-			std::cout << "<" << this->target << "> has been robotomized successfully 50% of the time" << std::endl;
-	}
+    this->isExcecutable(executor);
+
+    int n;
+
+    n = rand() % 2;
+    if (n)
+    {
+        std::cout << "BBBBRBJRBJBRHBBRBHBRHBRBRHRHRHRHRRRHRBRHBBGBGBGBGGHBHRBHGGGGHGHGHGRHGHRGHRBB" << std::endl << this->target << " has been robotomized successfully" << std::endl;
+    }
     else
-        std::cout << "Can't execute. Form not signed" << std::endl;
+    {
+        std::cout << "BBRRRR CCCHCHHHCHCH KKCK KKRKKRRKK" << std::endl << this->target << " robotomization failed abruptly" << std::endl;
+    }
 }

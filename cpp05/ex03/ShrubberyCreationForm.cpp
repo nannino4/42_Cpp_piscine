@@ -1,79 +1,61 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ShrubberyCreationForm.cpp                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dmalori <dmalori@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/15 10:34:15 by dmalori           #+#    #+#             */
-/*   Updated: 2021/05/15 10:34:22 by dmalori          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ShrubberyCreationForm.hpp"
-#include "Bureaucrat.hpp"
-#include <fstream>
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string target) : Form("shrubbery creation", 145, 137)
+/*
+*******************************************************************************
+** Constructors & Destructor
+*******************************************************************************
+*/
+
+ShrubberyCreationForm::ShrubberyCreationForm(void) : Form("ShrubberyCreationForm", 145, 137)
+{
+    this->target = "Default";
+}
+
+ShrubberyCreationForm::ShrubberyCreationForm(std::string const &target) : Form("ShrubberyCreationForm", 145, 137)
 {
     this->target = target;
 }
 
-std::string ShrubberyCreationForm::getTarget(void) const
+ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const &other) : Form("ShrubberyCreationForm", 145, 137)
 {
-    return this->target;
+    *this = other;
 }
-
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &other)
-{
-	*this = other;
-}
-
-ShrubberyCreationForm &ShrubberyCreationForm::operator = (const ShrubberyCreationForm &other)
-{
-	if (this != &other)
-	{
-		this->isSigned = other.isSigned;
-        this->target = other.target;
-	}
-	return (*this);
-}
-
-ShrubberyCreationForm::~ShrubberyCreationForm() {}
-
-void ShrubberyCreationForm::execute(const Bureaucrat & executor) const
-{
-	if (this->getSigned())
-	{
-		if (executor.getGrade() > this->gradeForExecute)
-			throw Form::GradeTooHighException();
-		else
-        {
-            std::string nameFile = this->target + "_shrubbery";
-            std::ofstream file(nameFile.c_str());
-            if (file)
-            {
-                file << "\n";
-                file << "        ###\n";
-                file << "       #o###\n";
-                file << "     #####o###\n";
-                file << "    #o#\\#|#/###\n";
-                file << "     ###\\|/#o#\n";
-                file << "      # }|{  #\n";
-                file << "        }|{\n";
-                file.close();
-                std::cout << "File " << nameFile << " created" << std::endl;
-            }
-            else
-                std::cout << "Error: Can't create file " << nameFile << std::endl;
-        }
-    }
-    else
-        std::cout << "Can't execute. Form not signed" << std::endl;
-}
-
 
 /*
-
+*******************************************************************************
+** Operator Overloads
+*******************************************************************************
 */
 
+ShrubberyCreationForm const &ShrubberyCreationForm::operator=(ShrubberyCreationForm const &other)
+{
+    if (this != &other)
+        this->target = other.target;
+    return (*this);
+}
+
+/*
+*******************************************************************************
+** Others
+*******************************************************************************
+*/
+
+void    ShrubberyCreationForm::execute(Bureaucrat const &executor) const
+{
+    this->isExcecutable(executor);
+    std::ofstream outFile(this->target + "_shrubbery");
+
+    outFile << "  ooooooo " << std::endl;
+    outFile << "oooooooooo" << std::endl;
+    outFile << "oooo||oooo" << std::endl;
+    outFile << "oo\\ || /oo" << std::endl;
+    outFile << " oo\\  /o  " << std::endl;
+    outFile << "  oo| |o  " << std::endl;
+    outFile << "    | |   " << std::endl;
+    outFile << "____| |___" << std::endl;
+    outFile << "---/ | \\---" << std::endl;
+    outFile << "-----------" << std::endl;
+
+    outFile.close();
+    std::cout << this->target << " has been shrubbered" << std::endl;
+}

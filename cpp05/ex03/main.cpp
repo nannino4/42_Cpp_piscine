@@ -1,94 +1,120 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dmalori <dmalori@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/15 10:34:01 by dmalori           #+#    #+#             */
-/*   Updated: 2021/05/15 10:34:22 by dmalori          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
 #include "PresidentialPardonForm.hpp"
-#include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
+#include "ShrubberyCreationForm.hpp"
 #include "Intern.hpp"
-#include <string>
-#include <iostream>
-#define RED "\033[0;31m"
-#define OFF "\033[0m"
 
 int main (void)
 {
-	std::cout << RED << "**Form PresidentialPardonForm, B1-1, B2-67" << OFF << std::endl;
+	srand(time(0));
+	Intern	intern;
+	Form	*ptr = 0;
+
+
+	ptr = intern.makeForm("NonExistingForm", "RandomTarget");
+	if (ptr)
+		std::cout << *ptr << std::endl;
+
 	try
 	{
-		Intern i;
-		Form *f = i.makeForm("presidential pardon", "Mario");
-		std::cout << *f;
-
-		Bureaucrat b1 = Bureaucrat("Pippo", 1);
-		b1.signForm(*f);
-		f->execute(b1);
-		b1.executeForm(*f);
-
-		Bureaucrat b2 = Bureaucrat("Gino", 67);
-		b2.executeForm(*f);
-		delete(f);
+		Bureaucrat	b("Bubbo", 150);
+		std::cout << b << std::endl;
+		ptr = intern.makeForm("PresidentialPardonForm", "Criminale");
+		if (ptr)
+			std::cout << *ptr << std::endl;
+		b.signForm(*ptr);
+		b.excecuteForm(*ptr);
+		if (ptr)
+		{
+			delete ptr;
+			ptr = 0;
+		}
 	}
 	catch(std::exception& e)
 	{
 		std::cout << e.what() << std::endl;
 	}
+	if (ptr)
+	{
+		delete ptr;
+		ptr = 0;
+	}
 
-	std::cout << RED << "**Form RobotomyRequestForm, B1-5, B2-100" << OFF << std::endl;
+	std::cout << std::endl;
+
+
 	try
 	{
-		Intern i;
-		Form *f = i.makeForm("robotomy request", "MARIO");
-		std::cout << *f;
-		Bureaucrat b1 = Bureaucrat("Pippo", 5);
-		f->execute(b1);
-		b1.executeForm(*f);
-		b1.signForm(*f);
-		f->execute(b1);
-		b1.executeForm(*f);
-		delete (f);
+		Bureaucrat	b("Boss", 2);
+		std::cout << b << std::endl;
+		ptr = intern.makeForm("PresidentialPardonForm", "Criminale");
+		if (ptr)
+			std::cout << *ptr << std::endl;
+		b.excecuteForm(*ptr);
+		if (ptr)
+		{
+			delete ptr;
+			ptr = 0;
+		}
 	}
 	catch(std::exception& e)
 	{
 		std::cout << e.what() << std::endl;
 	}
+	if (ptr)
+	{
+		delete ptr;
+		ptr = 0;
+	}
 
-	std::cout << RED << "**Form ShrubberyCreationForm, B1-50, B2-105" << OFF << std::endl;
+
+	std::cout << std::endl;
+
+
 	try
 	{
-		Intern i;
-		Form *f = i.makeForm("shrubbery creation", "PEPPE");
-		std::cout << *f;
-		Bureaucrat b1 = Bureaucrat("Pippo", 50);
-		b1.signForm(*f);
-		f->execute(b1);
-		delete (f);
-
-		f = i.makeForm("shrubbery creation", "GIANNI");;
-		Bureaucrat b2 = Bureaucrat("Gino", 105);
-		b2.executeForm(*f);
-		b1.signForm(*f);
-		b2.executeForm(*f);
-		delete(f);
+		Bureaucrat	b("Bossone", 1);
+		std::cout << b << std::endl;
+		ptr = intern.makeForm("PresidentialPardonForm", "Criminale");
+		if (ptr)
+			std::cout << *ptr << std::endl;
+		b.signForm(*ptr);
+		b.excecuteForm(*ptr);
+		if (ptr)
+		{
+			delete ptr;
+			ptr = 0;
+		}
+		ptr = intern.makeForm("RobotomyRequestForm", "ShadyRequest");
+		if (ptr)
+			std::cout << *ptr << std::endl;
+		b.signForm(*ptr);
+		b.excecuteForm(*ptr);
+		if (ptr)
+		{
+			delete ptr;
+			ptr = 0;
+		}
+		ptr = intern.makeForm("ShrubberyCreationForm", "Rirou's_Garden");
+		if (ptr)
+			std::cout << *ptr << std::endl;
+		b.signForm(*ptr);
+		b.excecuteForm(*ptr);
+		if (ptr)
+		{
+			delete ptr;
+			ptr = 0;
+		}
 	}
 	catch(std::exception& e)
 	{
 		std::cout << e.what() << std::endl;
 	}
-
-	std::cout << RED << "**Form Error Name" << OFF << std::endl;
-	Intern i;
-	i.makeForm("Ciao", "Pippo");
+	if (ptr)
+	{
+		delete ptr;
+		ptr = 0;
+	}
 
 	return (0);
 }
