@@ -21,6 +21,8 @@ PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm const &oth
     *this = other;
 }
 
+PresidentialPardonForm::~PresidentialPardonForm(void) {}
+
 /*
 *******************************************************************************
 ** Operator Overloads

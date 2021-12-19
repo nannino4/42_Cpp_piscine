@@ -9,7 +9,7 @@ int main (void)
 	srand(time(0));
 	Form	*p = new PresidentialPardonForm("Babbione");
 	Form	*r = new RobotomyRequestForm("ShadyRequest");
-	Form	*s = new ShrubberyCreationForm("Rirou's_Garden");
+	Form	*s = new ShrubberyCreationForm("Rirous_Garden");
 
 	std::cout << *p << std::endl;
 	std::cout << *r << std::endl;
