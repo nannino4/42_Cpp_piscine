@@ -39,23 +39,25 @@ void	identify(Base *p)
 
 void	identify(Base &p)
 {
+	Base tmp;
+
 	try
 	{
-		dynamic_cast<A &>(p);
+		tmp = dynamic_cast<A &>(p);
 		std::cout << "class A identified" << std::endl;
 		return ;
 	}
 	catch(const std::bad_cast &bc) {}
 	try
 	{
-		dynamic_cast<B &>(p);
+		tmp = dynamic_cast<B &>(p);
 		std::cout << "class B identified" << std::endl;
 		return ;
 	}
 	catch(const std::bad_cast &bc) {}
 	try
 	{
-		dynamic_cast<C &>(p);
+		tmp = dynamic_cast<C &>(p);
 		std::cout << "class C identified" << std::endl;
 		return ;
 	}
