@@ -10,35 +10,44 @@
 
 class Span
 {
-    public:
-        Span(unsigned int n = 0);
-        Span(std::vector<int>::iterator start, std::vector<int>::iterator end);
-        Span(Span const &src);
-        ~Span();
+public:
+	Span(unsigned int n = 0);
+	Span(std::vector<int>::iterator start, std::vector<int>::iterator end);
+	Span(Span const &src);
+	~Span();
 
-        Span& 		operator=(Span const &rhs);
+	Span &operator=(Span const &rhs);
 
-        void		addNumber(int const &value);
-        int			shortestSpan(void);
-        int			longestSpan(void);
+	void addNumber(int const &value);
+	int shortestSpan(void);
+	int longestSpan(void);
 
-        class capacityMaxReachedException : public std::exception
-        {
-            public: 
-                virtual const char*	what() const throw();
-        };
-        class noSpanToFindEmptyException : public std::exception
-        {
-            public:
-                virtual const char*	what() const throw();
-        };
-        class noSpanToFindOneException : public std::exception
-        {
-            public:
-                virtual const char*	what() const throw();
-        };
-		
-    private:
-        unsigned int		_n;
-        std::vector<int>	_tab;
+	class capacityMaxReachedException : public std::exception
+	{
+	public:
+		virtual const char *what() const throw()
+		{
+			return ("ERROR - Capacity max is reached");
+		}
+	};
+	class noSpanToFindEmptyException : public std::exception
+	{
+	public:
+		virtual const char *what() const throw()
+		{
+			return ("ERROR - No span to find, empty container");
+		}
+	};
+	class noSpanToFindOneException : public std::exception
+	{
+	public:
+		virtual const char *what() const throw()
+		{
+			return ("ERROR - No span to find, only one element in the container");
+		}
+	};
+
+private:
+	unsigned int _n;
+	std::vector<int> _tab;
 };

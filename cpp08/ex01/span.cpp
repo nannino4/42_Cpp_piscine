@@ -1,28 +1,28 @@
 #include "span.hpp"
 
 /*
-** ---------------- CONSTRUCTOR ----------------
+*******************************************************************************
+** Constructors & Destructor
+*******************************************************************************
 */
-Span::Span(unsigned int n) : _n(n), _tab(0)
-{}
+
+Span::Span(unsigned int n) : _n(n), _tab(0) {}
 
 Span::Span(std::vector<int>::iterator start, std::vector<int>::iterator end) : _tab(std::vector<int>(start, end))
 {
     _n = _tab.size();
 }
 
-Span::Span(Span const &src) : _n(src._n), _tab(src._tab)
-{}
+Span::Span(Span const &src) : _n(src._n), _tab(src._tab) {}
+
+Span::~Span() {}
 
 /*
-** ---------------- DESTRUCTOR ----------------
+*******************************************************************************
+** Operator Overloads
+*******************************************************************************
 */
-Span::~Span()
-{}
 
-/*
-** -------------------- OVERLOAD --------------------
-*/
 Span&  Span::operator=(Span const &rhs)
 {
     if (this != &rhs)
@@ -30,12 +30,15 @@ Span&  Span::operator=(Span const &rhs)
         this->_n = rhs._n;
         this->_tab = rhs._tab;
     }
-    return *this;
+    return (*this);
 }
 
 /*
-** ---------------- MEMBER FUCNCTIONS ----------------
+*******************************************************************************
+** Member Functions
+*******************************************************************************
 */
+
 void   Span::addNumber(int const &value)
 {
     if (this->_tab.size() < this->_n)
@@ -66,7 +69,7 @@ int  Span::shortestSpan(void)
         itA++;
         itB++;
     }
-    return Span;
+    return (Span);
 }
 
 int  Span::longestSpan(void)
@@ -79,22 +82,4 @@ int  Span::longestSpan(void)
     else if (this->_tab.size() == 1)
         noSpanToFindOneException();
     return (*std::max_element(itA, ite) - *std::min_element(itA, ite));
-}
-
-/*
-** ---------------- EXCEPTION ----------------
-*/
-const char* Span::capacityMaxReachedException::what() const throw()
-{
-    return ("ERROR - Capacity max is reached");
-}
-
-const char* Span::noSpanToFindEmptyException::what() const throw()
-{
-    return ("ERROR - No span to find, empty container");
-}
-
-const char* Span::noSpanToFindOneException::what() const throw()
-{
-    return ("ERROR - No span to find, only one element in the container");
 }
