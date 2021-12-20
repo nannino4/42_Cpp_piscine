@@ -8,7 +8,7 @@ CFLAGS		= 	-Wall -Wextra -Werror
 
 CC			= 	g++
 
-%.o :		%.c
+%.o :		%.cpp
 			$(CC) -c -I. $(CFLAGS) $< -o $@
 
 all:		$(NAME)

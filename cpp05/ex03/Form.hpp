@@ -18,7 +18,7 @@ public:
 	/* Constructors & Destructors */
 	Form(void);
 	Form(std::string name, int gradeSign, int gradeExec);
-	~Form(void);
+	virtual ~Form(void);
 	Form(const Form &other);
 
 	/* Operator overrides */

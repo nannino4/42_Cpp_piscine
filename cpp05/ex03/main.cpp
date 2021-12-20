@@ -95,7 +95,7 @@ int main (void)
 			delete ptr;
 			ptr = 0;
 		}
-		ptr = intern.makeForm("ShrubberyCreationForm", "Rirou's_Garden");
+		ptr = intern.makeForm("ShrubberyCreationForm", "Rirous_Garden");
 		if (ptr)
 			std::cout << *ptr << std::endl;
 		b.signForm(*ptr);

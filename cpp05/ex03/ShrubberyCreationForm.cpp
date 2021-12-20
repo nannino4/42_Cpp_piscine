@@ -21,6 +21,8 @@ ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const &other)
     *this = other;
 }
 
+ShrubberyCreationForm::~ShrubberyCreationForm(void) {}
+
 /*
 *******************************************************************************
 ** Operator Overloads

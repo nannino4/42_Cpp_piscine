@@ -21,6 +21,8 @@ RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm const &other) : For
     *this = other;
 }
 
+RobotomyRequestForm::~RobotomyRequestForm(void) {}
+
 /*
 *******************************************************************************
 ** Operator Overloads
