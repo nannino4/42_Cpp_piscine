@@ -1,18 +1,24 @@
 #include "span.hpp"
 
-#define SIZE 10000
+#define SIZE 10
 
 int generateNumber(void)
 {
-	return std::rand();
+	return (std::rand() % 10000);
 }
 
 std::vector<int> createRandomVector(unsigned int nb)
 {
-	std::vector<int> tab(nb);
+	std::vector<int> vec(nb);
 
-	std::generate(tab.begin(), tab.end(), generateNumber);
-	return tab;
+	std::generate(vec.begin(), vec.end(), generateNumber);
+	std::cout << "vector generated:" << std::endl;
+	for (unsigned int i = 0; i < nb; ++i)
+	{
+		std::cout << vec[i] << std::endl;
+	}
+	std::cout << std::endl;
+	return (vec);
 }
 
 int main(void)
@@ -30,10 +36,12 @@ int main(void)
 		std::cout << sp.shortestSpan() << std::endl;
 		std::cout << sp.longestSpan() << std::endl;
 	}
+	std::cout << std::endl;
 	std::cout << "My tests" << std::endl;
 	{
-		std::vector<int> tabTmp(createRandomVector(SIZE));
-		Span sp(tabTmp.begin(), tabTmp.end());
+		std::vector<int>	vec_tmp(createRandomVector(SIZE));
+		Span				sp(vec_tmp.begin(), vec_tmp.end());
+
 		std::cout << sp.shortestSpan() << std::endl;
 		std::cout << sp.longestSpan() << std::endl;
 	}

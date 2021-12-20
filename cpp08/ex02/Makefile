@@ -6,7 +6,7 @@ OBJS		= 	$(SRCS:.cpp=.o)
 
 CFLAGS		= 	-Wall -Wextra -Werror
 
-CC			= 	g++
+CC			= 	clang++
 
 %.o :		%.cpp
 			$(CC) -c -I. $(CFLAGS) $< -o $@

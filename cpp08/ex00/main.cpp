@@ -12,10 +12,10 @@ int main(void)
 		container.push_back(i);
 	for (i = 0; i < CONTAINER_SIZE + 3; i++)
 	{
-		if (easyfind<std::CONTAINER_TYPE<int>>(container, i) == container.end())
+		if (easyfind< std::CONTAINER_TYPE <int> >(container, i) == container.end())
 			std::cout << "Could not find occurence of the value \"" << i << "\" in the container." << std::endl;
 		else
-			std::cout << "Occurence of the value \"" << *easyfind<std::CONTAINER_TYPE<int>>(container, i) << "\" found in the container." << std::endl;
+			std::cout << "Occurence of the value \"" << *easyfind< std::CONTAINER_TYPE <int> >(container, i) << "\" found in the container." << std::endl;
 	}
 	return (0);
 }
